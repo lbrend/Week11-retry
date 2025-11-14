@@ -10,8 +10,9 @@ window.addEventListener("load", function () {
 function play() {
 	console.log("In play")
 	video.play();
-	video.volume = 1.0;
-    document.querySelector("#volume").innerText = "100%";
+	document.querySelector("#volume").innerHTML = (video.volume * 100) + "%";
+	console.log("New volume is:", video.volume);
+    
 }
 
 document.querySelector("#play").addEventListener("click", play);
@@ -77,15 +78,23 @@ document.querySelector("#mute").addEventListener("click", enableMute);
 
 
 
-function VolumeSlider() {
-    var vol = document.querySelector("#slider").value;
-    video.volume = vol / 100;
-    document.querySelector("#volume").innerText = vol + "%";
-    console.log("Volume set to " + vol + "%");
-}
+// function VolumeSlider() {
+//     var vol = document.querySelector("#slider").value;
+//     video.volume = vol / 100;
+//     document.querySelector("#volume").innerText = vol + "%";
+//     console.log("Volume set to " + vol + "%");
+// }
+
+document.querySelector("#slider").addEventListener("input", function() {
+	console.log("Volume slider moved");
+	let newVolume = this.value / 100;
+	video.volume = newVolume;
+	document.querySelector("#volume").innerHTML = (newVolume * 100) + "%";
+	console.log("New volume is:", newVolume);
+});
 
 
-document.querySelector("#slider").addEventListener("input", VolumeSlider);
+
 
 
 
